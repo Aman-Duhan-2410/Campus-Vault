@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: campusvault
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --workers 2 --threads 4 --timeout 120 app:app
+    plan: starter
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_PATH
+        value: /var/data/campusvault.db
+      - key: UPLOAD_FOLDER
+        value: /var/data/uploads
+      - key: ADMIN_EMAIL
+        sync: false
+    disk:
+      name: campusvault-data
+      mountPath: /var/data
+      sizeGB: 1
