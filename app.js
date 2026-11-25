@@ -1,0 +1,3 @@
+const input=document.getElementById('fileInput'), nameBox=document.getElementById('fileName'), zone=document.getElementById('dropZone');
+if(input){input.addEventListener('change',()=>{if(input.files[0]) nameBox.textContent=`Selected: ${input.files[0].name} (${(input.files[0].size/1024/1024).toFixed(2)} MB)`;});
+if(zone){zone.addEventListener('dragover',e=>{e.preventDefault();zone.classList.add('dragging')});zone.addEventListener('dragleave',()=>zone.classList.remove('dragging'));zone.addEventListener('drop',e=>{e.preventDefault();zone.classList.remove('dragging');if(e.dataTransfer.files.length){input.files=e.dataTransfer.files;input.dispatchEvent(new Event('change'));}})}}
